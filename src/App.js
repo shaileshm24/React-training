@@ -1,25 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import { Route, BrowserRouter as Router, Redirect } from "react-router-dom";
+import { Row, Col, Button } from "antd";
+import User from "./Component/User";
+import axios from "axios";
+import "antd/dist/antd.css";
+import "./App.css";
+import Login from "./Component/Login";
+import UserInfo from "./UserInfo";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  render() {
+    return (
+      <React.Fragment>
+        <Router>
+          <div>
+          <Route path="/login" component={Login}></Route>
+         
+            {window.localStorage.getItem("token") !== "" ? (
+              <Route path="/" component={UserInfo}></Route>
+            
+            ) : (
+              <Redirect to="/login"></Redirect>
+            )}{" "}
+          </div>
+        </Router>
+      </React.Fragment>
+    );
+  }
 }
 
 export default App;
